@@ -16,7 +16,8 @@ use futures::Future;
 use futures::future;
 use futures_cpupool::CpuPool;
 use mock_command::{CommandChild, RunCommand};
-use ring::digest::{SHA512, Context};
+use crypto::digest::Digest as CryptoDigest;
+use crypto::sha2::Sha512;
 use std::ffi::{OsStr, OsString};
 use std::fs::File;
 use std::hash::Hasher;
@@ -29,12 +30,12 @@ use std::time::Duration;
 use errors::*;
 
 pub struct Digest {
-    inner: Context,
+    inner: Sha512,
 }
 
 impl Digest {
     pub fn new() -> Digest {
-        Digest { inner: Context::new(&SHA512) }
+        Digest { inner: Sha512::new() }
     }
 
     /// Calculate the SHA-512 digest of the contents of `path`, running
@@ -60,27 +61,11 @@ impl Digest {
     }
 
     pub fn update(&mut self, bytes: &[u8]) {
-        self.inner.update(bytes);
+        self.inner.input(bytes);
     }
 
-    pub fn finish(self) -> String {
-        hex(self.inner.finish().as_ref())
-    }
-}
-
-fn hex(bytes: &[u8]) -> String {
-    let mut s = String::with_capacity(bytes.len() * 2);
-    for &byte in bytes {
-        s.push(hex(byte & 0xf));
-        s.push(hex((byte >> 4)& 0xf));
-    }
-    return s;
-
-    fn hex(byte: u8) -> char {
-        match byte {
-            0...9 => (b'0' + byte) as char,
-            _ => (b'a' + byte - 10) as char,
-        }
+    pub fn finish(mut self) -> String {
+        self.inner.result_str()
     }
 }
 

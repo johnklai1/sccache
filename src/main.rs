@@ -22,7 +22,6 @@ extern crate byteorder;
 extern crate chrono;
 #[macro_use]
 extern crate clap;
-#[cfg(feature = "rust-crypto")]
 extern crate crypto;
 #[cfg(unix)]
 extern crate daemonize;
@@ -55,7 +54,6 @@ extern crate native_tls;
 extern crate number_prefix;
 #[cfg(feature = "openssl")]
 extern crate openssl;
-extern crate ring;
 #[cfg(feature = "redis")]
 extern crate redis;
 extern crate regex;
