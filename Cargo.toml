@@ -1,6 +1,6 @@
 [package]
 name = "sccache"
-version = "0.2.3-pre"
+version = "0.2.5-pre"
 authors = ["Ted Mielczarek <ted@mielczarek.org>", "Alex Crichton <alex@alexcrichton.com>"]
 license = "Apache-2.0"
 description = "Sccache is a ccache-like tool. It is used as a compiler wrapper and avoids compilation when possible, storing a cache in a remote storage using the S3 API."
@@ -15,8 +15,8 @@ appveyor = { repository = "mozilla/sccache" }
 
 [dependencies]
 app_dirs = "1.1.1"
-base64 = "0.5.2"
-bincode = "0.8"
+base64 = "0.9.0"
+bincode = "0.9"
 byteorder = "1.0"
 chrono = { version = "0.3", optional = true }
 clap = "2.23.0"
@@ -28,7 +28,7 @@ futures = "0.1.11"
 futures-cpupool = "0.1"
 hyper = { version = "0.11", optional = true }
 hyper-tls = { version = "0.1", optional = true }
-jsonwebtoken = { version = "2.0", optional = true }
+jsonwebtoken = { version = "4.0", optional = true }
 libc = "0.2.10"
 local-encoding = "0.2.0"
 log = "0.3.6"
@@ -39,7 +39,7 @@ openssl = { version = "0.9", optional = true }
 redis = { version = "0.8.0", optional = true }
 regex = "0.2"
 retry = "0.4.0"
-ring = "0.9.0"
+ring = "0.13.0-alpha"
 rust-crypto = { version = "0.2.36", optional = true }
 serde = "1.0"
 serde_derive = "1.0"
@@ -57,12 +57,12 @@ tokio-tls = "0.1"
 uuid = { version = "0.5", features = ["v4"] }
 url = { version = "1.0", optional = true }
 which = "1.0"
-zip = { version = "0.2", default-features = false }
+zip = { version = "=0.2.3", default-features = false }
 
 [dev-dependencies]
 assert_cli = "0.5"
 gcc = "0.3"
-itertools = "0.6"
+itertools = "0.7"
 
 [target.'cfg(unix)'.dependencies]
 daemonize = "0.2.3"
